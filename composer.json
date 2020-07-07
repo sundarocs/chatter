@@ -7,7 +7,9 @@
             "email": "tony@devdojo.com"
         }
     ],
-    "require": {},
+    "require": {
+        "minimum-stability": "dev"
+    },
     "require-dev": {
         "illuminate/cache": "~5.1.20|5.2.*|5.3.*|6.*|7.*",
         "illuminate/console": "~5.1.20|5.2.*|5.3.*|6.*|7.*",
@@ -23,5 +25,11 @@
         "classmap": [
             "tests/TestCase.php"
         ]
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/thedevdojo/chatter"
+        }
+    ]
 }
