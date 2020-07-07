@@ -35,6 +35,45 @@ Route::group([
     Route::get('/', [
         'as'         => 'home',
         'uses'       => 'ChatterController@index',
+        'middleware' => $middleware('public'),
+    ]);
+
+    Route::post('/', [
+        'as'         => 'home',
+        'uses'       => 'ChatterController@index',
+        'middleware' => $middleware('home'),
+    ]);
+
+    Route::get('/past-discussion', [
+        'as'         => 'home',
+        'uses'       => 'ChatterController@index',
+        'middleware' => $middleware('home'),
+    ]);
+
+    /*// My Discussion view.
+    Route::get('/my-discussion', [
+        'as'         => 'home',
+        'uses'       => 'ChatterController@index',
+        'middleware' => $middleware('home'),
+    ]);
+
+    // Recent Discussion view.
+    Route::get('/recent-discussion', [
+        'as'         => 'home',
+        'uses'       => 'ChatterController@index',
+        'middleware' => $middleware('public'),
+    ]);
+
+    Route::post('/recent-discussion', [
+        'as'         => 'home',
+        'uses'       => 'ChatterController@index',
+        'middleware' => $middleware('home'),
+    ]);*/
+
+    // LIKE & UNLIKE
+    Route::get('/vote', [
+        'as'         => 'home',
+        'uses'       => 'ChatterController@placeLikeOrUnlikeOnForum',
         'middleware' => $middleware('home'),
     ]);
 
@@ -59,6 +98,16 @@ Route::group([
     Route::get('register', [
         'as'   => 'register',
         'uses' => 'ChatterController@register',
+    ]);
+
+    Route::post('/remaining-comment', [
+        'as'         => 'remainingcomment',
+        'uses'       => 'ChatterDiscussionController@commentPaginationForum',
+    ]);
+
+     Route::post('/remaining-reply-comment', [
+        'as'         => 'remainingreplycomment',
+        'uses'       => 'ChatterDiscussionController@commentReplyPaginationForum',
     ]);
 
     /*
@@ -96,6 +145,29 @@ Route::group([
             'uses'       => 'ChatterDiscussionController@show',
             'middleware' => $middleware('discussion.show'),
         ]);
+
+        Route::post('{category}/{slug}', [
+            'as'         => 'showInCategory',
+            'uses'       => 'ChatterDiscussionController@show',
+            'middleware' => $middleware('discussion.show'),
+        ]);
+
+        Route::get('{category}/{slug}/{comment_id}', [
+            'as'         => 'showInCategory',
+            'uses'       => 'ChatterDiscussionController@show',
+            'middleware' => $middleware('public'),
+        ]);
+
+        Route::post('{category}/{slug}/{comment_id}', [
+            'as'         => 'showInCategory',
+            'uses'       => 'ChatterDiscussionController@show',
+            'middleware' => $middleware('discussion.show'),
+        ]);
+
+        // DISCUSSION EDIT.
+       /* Route::get('edit/{id}', [
+            'uses'       => 'ChatterDiscussionController@edit',
+        ]);*/
 
         // Add user notification to discussion
         Route::post('{category}/{slug}/email', [
@@ -155,6 +227,66 @@ Route::group([
             'middleware' => $middleware('post.index'),
         ]);
 
+        Route::get('/{slug}', [
+            'as'         => 'index',
+            'uses'       => 'ChatterPostController@edit',
+            'middleware' => $middleware('post.index'),
+        ]);
+        Route::post('/edit', [
+            'as'         => 'index',
+            'uses'       => 'ChatterPostController@editComment',
+            'middleware' => $middleware('post.index'),
+        ]);
+        
+        Route::post('/comment-like', [
+            'as'         => 'index',
+            'uses'       => 'ChatterPostController@commentLike',
+            'middleware' => $authMiddleware('post.index'),
+        ]);
+
+        Route::post('/get-post-reaction', [
+            'as'         => 'index',
+            'uses'       => 'ChatterPostController@getPostReaction',
+            'middleware' => $authMiddleware('post.index'),
+        ]);
+
+        Route::post('/get-more-post-reaction', [
+            'as'         => 'index',
+            'uses'       => 'ChatterPostController@getMorePostReaction',
+            'middleware' => $authMiddleware('post.index'),
+        ]);
+
+        Route::get('/delete/{post_id}', [
+            'as'         => 'index',
+            'uses'       => 'ChatterPostController@deleteComment',
+            'middleware' => $middleware('post.index'),
+        ]);
+        Route::get('/report/{post_id}', [
+            'as'         => 'index',
+            'uses'       => 'ChatterPostController@reportDiscussion',
+            'middleware' => $middleware('post.index'),
+        ]);
+        Route::post('/report-chatter', [
+            'as'         => 'index',
+            'uses'       => 'ChatterPostController@reportDiscussion',
+            'middleware' => $middleware('post.index'),
+        ]);
+        Route::post('/report-chatter/comments', [
+            'as'         => 'index',
+            'uses'       => 'ChatterPostController@reportDiscussionComment',
+            'middleware' => $middleware('post.index'),
+        ]);
+        Route::get('/report/{discussion_id}/{post_id}', [
+            'as'         => 'index',
+            'uses'       => 'ChatterPostController@reportDiscussionComment',
+            'middleware' => $middleware('post.index'),
+        ]);
+        Route::post('/{id}', [
+            'as'         => 'index',
+            'uses'       => 'ChatterPostController@updateDiscussion',
+            'middleware' => $middleware('post.index'),
+        ]);
+
         // Create post view.
         Route::get('create', [
             'as'         => 'create',
@@ -203,6 +335,7 @@ Route::group([
                 'uses'       => 'ChatterPostController@destroy',
                 'middleware' => $authMiddleware('post.destroy'),
             ]);
+          
         });
     });
 });

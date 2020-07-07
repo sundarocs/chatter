@@ -22,8 +22,6 @@ Quick Note: If this is a new project, make sure to install the default user auth
 
 2. Add the service provider to your `config/app.php` providers array:
 
-   **If you're installing on Laravel 5.5+ skip this step**
-
     ```
     DevDojo\Chatter\ChatterServiceProvider::class,
     ```
@@ -31,7 +29,7 @@ Quick Note: If this is a new project, make sure to install the default user auth
 3. Publish the Vendor Assets files by running:
 
     ```
-    php artisan vendor:publish --provider="DevDojo\Chatter\ChatterServiceProvider"
+    php artisan vendor:publish
     ```
 
 4. Now that we have published a few new files to our application we need to reload them with the following command:
@@ -112,16 +110,6 @@ In order to properly display the posts you will need to include the  `graham-cam
 composer require graham-campbell/markdown
 ```
 
-### Trumbowyg editor
-
-If you are going to use Trumbowyg as your editor of choice you will need to change that in your config/chatter.php:
-
-```
-'editor' => 'trumbowyg',
-```
-
-Trumbowyg requires jQuery >= 1.8 to be included.
-
 ### VIDEOS
 
 [Introduction and Installation of Chatter](https://devdojo.com/episode/create-a-laravel-forum)
@@ -201,9 +189,9 @@ This package provides a number of events allowing you to respond to user actions
 | Event        | Available properties           | Description  |
 | ------------- |:-------------:| -----:|
 | `ChatterBeforeNewDiscussion`      | `Illuminate\Http\Request ($request)`, `Illuminate\Validation\Validator ($validator)` | This event is fired *before* a discussion is validated and created |
-| `ChatterAfterNewDiscussion`      | `Illuminate\Http\Request ($request)`, `Models::discussion() ($discussion)`, `Models::post() ($post)` | This event is fired *after* a discussion has been validated and created |
+| `ChatterAfterNewDiscussion`      | `Illuminate\Http\Request ($request)` | This event is fired *after* a discussion has been validated and created |
 | `ChatterBeforeNewResponse`      | `Illuminate\Http\Request ($request)`, `Illuminate\Validation\Validator ($validator)` | This event is fired *before* a response is validated and created |
-| `ChatterAfterNewResponse`      | `Illuminate\Http\Request ($request)`, `Models::post() ($post)` | This event is fired *after* a response is validated and created |
+| `ChatterAfterNewResponse`      | `Illuminate\Http\Request ($request)` | This event is fired *after* a response is validated and created |
 
 #### Listening for Events
 To register your listeners for these events, follow the [Laravel documentation for registering events and listeners](https://laravel.com/docs/events#registering-events-and-listeners).
@@ -218,22 +206,6 @@ protected $listen = [
 ```
 
 where `App\Listeners\HandleNewDiscussion` is a class in your application which handles the event when it's fired.
-
-You can access the object that triggered the event in your listener with
-```php
-    public function handle(ChatterAfterNewDiscussion $event)
-    {
-        // $event->discussion
-        // $event->post
-    }
-```
-and 
-```php
-    public function handle(ChatterAfterNewResponse $event)
-    {
-        // $event->post
-    }
-```
 
 ### Screenshots
 

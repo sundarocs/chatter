@@ -17,6 +17,9 @@ class Models
      */
     protected static $models = [];
 
+    const REPORT_TYPE = 'discussion';
+    
+    const TYPE_DELETED_DISCUSSION = 'delete_discussion';
     /**
      * Set the model to be used for categories.
      *
@@ -40,6 +43,8 @@ class Models
     {
         static::$models[Discussion::class] = $model;
     }
+
+    
 
     /**
      * Set the model to be used for posts.
@@ -75,6 +80,18 @@ class Models
     public static function discussion(array $attributes = [])
     {
         return self::makeModel(Discussion::class, $attributes);
+    }
+
+    /**
+     * Get an instance of the discussion vote model.
+     *
+     * @param array $attributes
+     *
+     * @return \DevDojo\Chatter\Models\DiscussionVote
+     */
+    public static function discussionvote(array $attributes = [])
+    {
+        return self::makeModel(DiscussionVote::class, $attributes);
     }
 
     /**
@@ -119,4 +136,11 @@ class Models
 
         return $model;
     }
+
+    public static function discussionlike(array $attributes = [])
+    {
+        return self::makeModel(ChatterLikes::class, $attributes);
+    }
+
+
 }

@@ -1,5 +1,5 @@
 {
-    "name": "devdojo/chatter",
+    "name": "sundarocs/chatter",
     "description": "A simple forum package for your laravel app",
     "authors": [
         {
@@ -7,14 +7,12 @@
             "email": "tony@devdojo.com"
         }
     ],
-    "require": {
-        "luketowers/purifier": "~3.0"
-    },
+    "require": {},
     "require-dev": {
-        "illuminate/cache": "~5.1.20|5.2.*|5.3.*",
-        "illuminate/console": "~5.1.20|5.2.*|5.3.*",
+        "illuminate/cache": "~5.1.20|5.2.*|5.3.*|6.*|7.*",
+        "illuminate/console": "~5.1.20|5.2.*|5.3.*|6.*|7.*",
         "mockery/mockery": "^0.9.5",
-        "phpunit/phpunit": "~5.7.14"
+        "phpunit/phpunit": "^7.5.15|^8.4|^9.0"
     },
     "autoload": {
 	    "psr-4": {
@@ -25,12 +23,5 @@
         "classmap": [
             "tests/TestCase.php"
         ]
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "DevDojo\\Chatter\\ChatterServiceProvider"
-            ]
-        }
     }
 }
