@@ -9,8 +9,8 @@
     ],
     "require": {
         "devdojo/chatter": "dev-sundar-release as 0.3.1",
-        "minimum-stability": "dev"
     },
+    "minimum-stability": "dev",
     "require-dev": {
         "illuminate/cache": "~5.1.20|5.2.*|5.3.*|6.*|7.*",
         "illuminate/console": "~5.1.20|5.2.*|5.3.*|6.*|7.*",
