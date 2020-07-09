@@ -8,7 +8,7 @@
         }
     ],
     "require": {
-        "devdojo/chatter": "dev-sundar-release#v0.3.1",
+        "devdojo/chatter": "dev-sundar-release as 0.3.1",
         "minimum-stability": "dev"
     },
     "require-dev": {
